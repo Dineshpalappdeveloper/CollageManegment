@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/noDataFound"
+    android:layout_height="match_parent">
+<TextView
+    android:layout_width="wrap_content"
+    android:text="No Data Found"
+    android:textSize="25dp"
+    android:textStyle="italic"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content"/>
+</com.google.android.material.card.MaterialCardView>

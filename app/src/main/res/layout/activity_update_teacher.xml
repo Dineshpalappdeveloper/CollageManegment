@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".Faculty.UpdateTeacherActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/UpdateTeacherImage"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_add_photo" />
+    <EditText
+        android:layout_width="match_parent"
+        android:text="Dinesh Kumar"
+        android:textSize="20dp"
+        android:layout_marginVertical="20dp"
+        android:id="@+id/UpdateTeacherName"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:text="DineshKumar@gmail.com"
+        android:textSize="20dp"
+        android:id="@+id/UpdateTeacherEmail"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:text="principal"
+        android:textSize="20dp"
+        android:layout_marginVertical="20dp"
+        android:id="@+id/UpdateTeacherPost"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Update"
+            android:id="@+id/UpdateTeacherUpdateBtn"
+            android:layout_marginHorizontal="20dp"
+            android:padding="15dp"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="Delete"
+            android:layout_marginHorizontal="20dp"
+            android:padding="15dp"
+            android:id="@+id/UpdateTeacherDeleteBtn"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
