@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -54,7 +55,10 @@ public class DeleteNoticeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list = new ArrayList<>();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    NoticeData data = snapshot.getValue(NoticeData.class);
+                    Log.d("shu", snapshot1.getKey() + " = key");
+                    String img = "http://thewowstyle.com/wp-content/uploads/2015/01/nature-images..jpg";
+                    NoticeData data = new NoticeData(snapshot1.child("title").getValue().toString(), snapshot1.child("image").getValue().toString(),
+                            snapshot1.child("data").getValue().toString(), snapshot1.child("time").getValue().toString(), snapshot1.getKey());
                     list.add(data);
                 }
                 adapter = new NoticeAdapter(DeleteNoticeActivity.this, list);

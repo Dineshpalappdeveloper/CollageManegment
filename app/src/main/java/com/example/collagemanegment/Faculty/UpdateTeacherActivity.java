@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -178,16 +179,20 @@ public class UpdateTeacherActivity extends AppCompatActivity {
     }
 
     private void updateData(String s) {
-        HashMap hp = new HashMap();
-        hp.put("name",name);
-        hp.put("email",email);
-        hp.put("post",post);
+
+        HashMap<String, Object> hp = new HashMap();
+        hp.put("name", UpdateTeacherName.getText().toString().trim());
+        hp.put("email",UpdateTeacherEmail.getText().toString().trim());
+        hp.put("post", UpdateTeacherPost.getText().toString().trim());
         hp.put("image",s);
+
+        Log.d("shu", category + " " + uniquKey);
 
         reference.child(category).child(uniquKey).updateChildren(hp).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
                 pd.dismiss();
+                Log.d("shu", task.getResult().toString());
                 Toast.makeText(UpdateTeacherActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UpdateTeacherActivity.this, UploadFacultyActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);

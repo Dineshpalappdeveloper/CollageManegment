@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_margin="10dp"
+        android:background="#A4CDC9"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
@@ -48,8 +49,8 @@
     </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
-        android:scaleType="fitXY"
+       android:scaleType="centerCrop"
         android:id="@+id/deleteNoticeImage"
-        android:layout_height="wrap_content"/>
+        android:layout_height="600dp"/>
 </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

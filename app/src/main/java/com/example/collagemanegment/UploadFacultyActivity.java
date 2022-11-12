@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -85,7 +86,10 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     csNoData.setVisibility(View.GONE);
                     csDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        TeacherData data = snapshot1.getValue(TeacherData.class);
+
+                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
+
                         list1.add(data);
                     }
                     csDepartment.setHasFixedSize(true);
@@ -118,7 +122,8 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     BEdNoData.setVisibility(View.GONE);
                     BEdDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        TeacherData data = snapshot1.getValue(TeacherData.class);
+                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
                         list2.add(data);
                     }
                     BEdDepartment.setHasFixedSize(true);
@@ -151,7 +156,8 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     LawNoData.setVisibility(View.GONE);
                     LawDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        TeacherData data = snapshot1.getValue(TeacherData.class);
+                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
                         list3.add(data);
                     }
                     LawDepartment.setHasFixedSize(true);
@@ -184,7 +190,8 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     OtherNoData.setVisibility(View.GONE);
                     OtherDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                        TeacherData data = snapshot1.getValue(TeacherData.class);
+                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
                         list4.add(data);
                     }
                     OtherDepartment.setHasFixedSize(true);

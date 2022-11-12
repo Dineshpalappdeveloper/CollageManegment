@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,18 +34,20 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 
 public class UploadEbookActivity extends AppCompatActivity {
-   private CardView PdfPicer;
-   private EditText PdfTitle;
-   private TextView PdfName;
-   private Button PdfuploadBtn1;
-   private String pdfName,title;
+    private CardView PdfPicer;
+    private EditText PdfTitle;
+    private TextView PdfName;
+    private Button PdfuploadBtn1;
+    private String pdfName,title;
     private ProgressDialog pd;
     private final int REQ = 1;
     private Bitmap bitmap;
     private Uri pdfData;
+    String fileName = "";
     String downloadUrl = "";
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
@@ -59,6 +62,7 @@ public class UploadEbookActivity extends AppCompatActivity {
 
         pd = new ProgressDialog(this);
 
+        fileName = String.valueOf(new Date().getTime());
 
         PdfName = findViewById(R.id.PdfName);
         PdfTitle = findViewById(R.id.PdfTitle);
@@ -132,14 +136,14 @@ public class UploadEbookActivity extends AppCompatActivity {
                 Toast.makeText(UploadEbookActivity.this, "Failed to upload pdf", Toast.LENGTH_SHORT).show();
             }
         });
-        
+
     }
 
 
     private void openGallery() {
         Intent intent = new Intent();
-       intent.setType("pdf/doc/ppt/jpg/png");
-       // intent.setType("*");
+        intent.setType("application/pdf");
+        // intent.setType("*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Pdf File"),REQ);
     }
@@ -149,22 +153,24 @@ public class UploadEbookActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ && resultCode == RESULT_OK) {
-            pdfData = data.getData();
+        if (requestCode == REQ && resultCode == RESULT_OK ) {
 
-        if (pdfData.toString().startsWith("content://")){
-            Cursor cursor = null;
-            try {
-                cursor = UploadEbookActivity.this.getContentResolver().query(pdfData,null,null,null,null);
-                if (cursor != null && cursor.moveToFirst()){
-                    pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+           pdfData = data.getData();
+            if (pdfData.toString().startsWith("content://")){
+                Cursor cursor = null;
+                try {
+                    cursor = UploadEbookActivity.this.getContentResolver().query(pdfData,null,null,null,null);
+                    if (cursor != null && cursor.moveToFirst()){
+                        pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            }else if (pdfData.toString().startsWith("file://")){
+                pdfName = new File(pdfData.toString()).getName();
             }
-        }else if (pdfData.toString().startsWith("file://")){
-            pdfName = new File(pdfData.toString()).getName();
-        }
+
+            PdfName.setText(pdfName);
         }
     }
 }

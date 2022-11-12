@@ -234,5 +234,15 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
+<TextView
+    android:layout_width="wrap_content"
+    android:text="Logout"
+    android:textSize="25dp"
+    android:id="@+id/logout"
+    android:layout_marginTop="20dp"
+    android:drawableStart="@drawable/ic_logout"
+    android:drawablePadding="5dp"
+    android:padding="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_height="wrap_content"/>
 </LinearLayout>

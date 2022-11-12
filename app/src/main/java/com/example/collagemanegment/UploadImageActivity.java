@@ -139,9 +139,11 @@ public class UploadImageActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 pd.dismiss();
+
                 Toast.makeText(UploadImageActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent12 = new Intent(UploadImageActivity.this, MainActivity.class);
-                startActivity(intent12);
+                startActivity(new Intent(UploadImageActivity.this,MainActivity.class));
+                finish();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

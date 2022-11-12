@@ -53,13 +53,12 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
             @Override
             public void onClick(View view) {
 
-
                Intent intent = new Intent(context,UpdateTeacherActivity.class);
                intent.putExtra("name",item.getTeacherName());
                intent.putExtra("email",item.getTeacherEmail());
                intent.putExtra("post",item.getTeacherPost());
                intent.putExtra("image",item.getImage());
-               intent.putExtra("key",item.getKey());
+               intent.putExtra("key","-NFiM6Ak_PWV8LWTjxfL");
                intent.putExtra("category",category);
                context.startActivity(intent);
 
