@@ -56,6 +56,7 @@ public class AddTeacherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_add_teacher);
         addTecherBtn = findViewById(R.id.addTecherBtn);
         name = findViewById(R.id.teacherName);

@@ -1,10 +1,9 @@
-package com.example.collagemanegment;
+package com.example.collagemanegment.Syllabus;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -13,15 +12,15 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.collagemanegment.R;
+import com.example.collagemanegment.UploadEbookActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,11 +32,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
-public class UploadEbookActivity extends AppCompatActivity {
+public class UploadSyllabusActivity extends AppCompatActivity {
     private CardView PdfPicer;
     private EditText PdfTitle;
     private TextView PdfName;
@@ -51,24 +49,23 @@ public class UploadEbookActivity extends AppCompatActivity {
     String downloadUrl = "";
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_upload_ebook);
+        setContentView(R.layout.activity_upload_syllabus);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
 
         pd = new ProgressDialog(this);
 
         fileName = String.valueOf(new Date().getTime());
-        getSupportActionBar().setTitle("Upload Ebooks");
+        getSupportActionBar().setTitle("Upload Syllabus");
 
-        PdfName = findViewById(R.id.PdfName);
-        PdfTitle = findViewById(R.id.PdfTitle);
-        PdfPicer = findViewById(R.id.PdfPicer);
+        PdfName = findViewById(R.id.PdfName1);
+        PdfTitle = findViewById(R.id.PdfTitle1);
+        PdfPicer = findViewById(R.id.PdfPicer1);
         PdfuploadBtn1 = findViewById(R.id.UploadPdfBtn1);
 
         PdfPicer.setOnClickListener(new View.OnClickListener() {
@@ -85,12 +82,14 @@ public class UploadEbookActivity extends AppCompatActivity {
                     PdfTitle.setError("Empty");
                     PdfTitle.requestFocus();
                 }else if (pdfData == null){
-                    Toast.makeText(UploadEbookActivity.this, "Please Select Pdf", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Select Pdf", Toast.LENGTH_SHORT).show();
                 }else {
-                    pd.setTitle("Pdf uploading");
+                    pd.setTitle("Syllabus uploading");
                     pd.setMessage("Please wait....");
+                    pd.setCancelable(false);
                     pd.show();
                     uploadPdf();
+
                 }
             }
         });
@@ -98,7 +97,8 @@ public class UploadEbookActivity extends AppCompatActivity {
     }
 
     private void uploadPdf() {
-        StorageReference reference = storageReference.child("pdf/"+ pdfName+"-"+System.currentTimeMillis()+".pdf");
+        PdfName.setText("");
+        StorageReference reference = storageReference.child("Syllabus/"+ pdfName+"-"+System.currentTimeMillis()+".Syllabus");
         reference.putFile(pdfData)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -112,33 +112,34 @@ public class UploadEbookActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(UploadEbookActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+
     }
 
     private void uploadData(String downloadUrl) {
-        String uniqueKey = databaseReference.child("pdf").push().getKey();
+        String uniqueKey = databaseReference.child("Syllabus").push().getKey();
 
         HashMap data = new HashMap();
         data.put("pdfTitle",title);
         data.put("pdfUrl",downloadUrl);
 
-        databaseReference.child("pdf").child(uniqueKey).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child("Syllabus").child(uniqueKey).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 pd.dismiss();
-                Toast.makeText(UploadEbookActivity.this, "Pdf Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Syllabus Uploaded ", Toast.LENGTH_SHORT).show();
                 PdfTitle.setText("");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(UploadEbookActivity.this, "Failed to upload pdf", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Failed to upload Syllabus", Toast.LENGTH_SHORT).show();
             }
         });
-
+        PdfName.setText("");
     }
 
 
@@ -157,11 +158,11 @@ public class UploadEbookActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQ && resultCode == RESULT_OK ) {
 
-           pdfData = data.getData();
+            pdfData = data.getData();
             if (pdfData.toString().startsWith("content://")){
                 Cursor cursor = null;
                 try {
-                    cursor = UploadEbookActivity.this.getContentResolver().query(pdfData,null,null,null,null);
+                    cursor = UploadSyllabusActivity.this.getContentResolver().query(pdfData,null,null,null,null);
                     if (cursor != null && cursor.moveToFirst()){
                         pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                     }

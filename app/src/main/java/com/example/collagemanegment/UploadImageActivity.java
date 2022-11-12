@@ -52,6 +52,7 @@ public class UploadImageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_upload_image);
 
         pd = new ProgressDialog(this);
@@ -139,9 +140,11 @@ public class UploadImageActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 pd.dismiss();
+
                 Toast.makeText(UploadImageActivity.this, "Uploaded Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent12 = new Intent(UploadImageActivity.this, MainActivity.class);
-                startActivity(intent12);
+                startActivity(new Intent(UploadImageActivity.this,MainActivity.class));
+                finish();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

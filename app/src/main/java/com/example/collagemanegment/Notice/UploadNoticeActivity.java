@@ -106,8 +106,7 @@ public class UploadNoticeActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 pd.dismiss();
                 Toast.makeText(UploadNoticeActivity.this, "Notice uploaded", Toast.LENGTH_SHORT).show();
-                Intent intent12 = new Intent(UploadNoticeActivity.this, MainActivity.class);
-                startActivity(intent12);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

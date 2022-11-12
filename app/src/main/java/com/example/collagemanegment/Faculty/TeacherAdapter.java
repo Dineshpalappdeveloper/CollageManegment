@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +23,14 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
     private List<TeacherData> list;
     private Context context;
     private String category;
-    public TeacherAdapter(List<TeacherData> list, Context context,String category) {
+    public TeacherAdapter(List<TeacherData> list, Context context) {
         this.list = list;
         this.context = context;
         this.category = category;
+
+    }
+
+    public TeacherAdapter(List<TeacherData> list1, UploadFacultyActivity context, String s) {
 
     }
 
@@ -53,13 +56,12 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.TeacherV
             @Override
             public void onClick(View view) {
 
-
                Intent intent = new Intent(context,UpdateTeacherActivity.class);
                intent.putExtra("name",item.getTeacherName());
                intent.putExtra("email",item.getTeacherEmail());
                intent.putExtra("post",item.getTeacherPost());
                intent.putExtra("image",item.getImage());
-               intent.putExtra("key",item.getKey());
+               intent.putExtra("key","-NFiM6Ak_PWV8LWTjxfL");
                intent.putExtra("category",category);
                context.startActivity(intent);
 

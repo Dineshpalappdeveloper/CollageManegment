@@ -3,9 +3,6 @@ package com.example.collagemanegment.Notice;
 public class NoticeData {
     String title, image,data,time,key;
 
-    public NoticeData() {
-    }
-
     public NoticeData(String title, String image, String data, String time, String key) {
         this.title = title;
         this.image = image;

@@ -3,6 +3,7 @@ package com.example.collagemanegment.Notice;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.NoticeView
 
         holder.noticeTitle.setText(currentItem.getTitle());
         try {
+
             if (currentItem.getImage() != null)
                 Picasso.get().load(currentItem.getImage()).into(holder.noticeImage);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("shu", e.getMessage());
         }
         holder.deleteNotice.setOnClickListener(new View.OnClickListener() {
             @Override

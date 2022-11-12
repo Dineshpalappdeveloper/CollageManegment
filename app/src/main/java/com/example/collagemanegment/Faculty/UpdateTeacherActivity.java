@@ -11,12 +11,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.collagemanegment.R;
 import com.example.collagemanegment.UploadFacultyActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,6 +53,7 @@ public class UpdateTeacherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_update_teacher);
         pd = new ProgressDialog(this);
         reference = FirebaseDatabase.getInstance().getReference().child("Teacher");
@@ -75,7 +78,8 @@ public class UpdateTeacherActivity extends AppCompatActivity {
         UpdateTeacherEmail.setText(email);
         UpdateTeacherPost.setText(post);
         try {
-            Picasso.get().load(image).into(UpdateTeacherImage);
+            Picasso.get().load(image).placeholder(R.drawable.ic_persion).into(UpdateTeacherImage);
+           // Glide.with(context).load(item.getImage()).placeholder(R.drawable.ic_developer).into(holder.imageView);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,16 +182,23 @@ public class UpdateTeacherActivity extends AppCompatActivity {
     }
 
     private void updateData(String s) {
-        HashMap hp = new HashMap();
-        hp.put("name",name);
-        hp.put("email",email);
-        hp.put("post",post);
-        hp.put("image",s);
+
+        HashMap<String, Object> hp = new HashMap();
+
+         hp.put("name",name);
+         hp.put("email",email);
+         hp.put("post",post);
+//        hp.put("name", UpdateTeacherName.getText().toString().trim());
+//        hp.put("email",UpdateTeacherEmail.getText().toString().trim());
+//        hp.put("post", UpdateTeacherPost.getText().toString().trim());
+     hp.put("image",s);
+
 
         reference.child(category).child(uniquKey).updateChildren(hp).addOnCompleteListener(new OnCompleteListener() {
             @Override
             public void onComplete(@NonNull Task task) {
                 pd.dismiss();
+                Log.d("shu", task.getResult().toString());
                 Toast.makeText(UpdateTeacherActivity.this, "Updated", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UpdateTeacherActivity.this, UploadFacultyActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -9,7 +9,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,6 +39,7 @@ public class UploadFacultyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_upload_faculty);
         pd = new ProgressDialog(this);
         fab = findViewById(R.id.AddTeacher);
@@ -53,6 +53,8 @@ public class UploadFacultyActivity extends AppCompatActivity {
         OtherNoData = findViewById(R.id.OtherNoData);
 
         reference = FirebaseDatabase.getInstance().getReference().child("Teacher");
+
+
 
 
         csDepartment();
@@ -72,7 +74,9 @@ public class UploadFacultyActivity extends AppCompatActivity {
 
     private void csDepartment() {
         pd.setMessage("please wait...");
+        pd.setCancelable(false);
         pd.show();
+
         dbRef = reference.child("Computer Application & IT");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,11 +90,15 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     csDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         TeacherData data = snapshot1.getValue(TeacherData.class);
+//                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+//                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
+
                         list1.add(data);
                     }
                     csDepartment.setHasFixedSize(true);
                     csDepartment.setLayoutManager(new LinearLayoutManager(UploadFacultyActivity.this));
-                    adapter = new TeacherAdapter(list1, UploadFacultyActivity.this, "Computer Application & IT");
+                   adapter = new TeacherAdapter(list1, UploadFacultyActivity.this, "Computer Application & IT");
+                  //  adapter = new TeacherAdapter(list1, UploadFacultyActivity.this);
                     csDepartment.setAdapter(adapter);
                 }
             }
@@ -119,11 +127,13 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     BEdDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         TeacherData data = snapshot1.getValue(TeacherData.class);
+//                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+//                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
                         list2.add(data);
                     }
                     BEdDepartment.setHasFixedSize(true);
                     BEdDepartment.setLayoutManager(new LinearLayoutManager(UploadFacultyActivity.this));
-                    adapter = new TeacherAdapter(list2, UploadFacultyActivity.this, "BEd");
+                    adapter = new TeacherAdapter(list2, UploadFacultyActivity.this,"BEd");
                     BEdDepartment.setAdapter(adapter);
                 }
             }
@@ -152,11 +162,13 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     LawDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         TeacherData data = snapshot1.getValue(TeacherData.class);
+//                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+//                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
                         list3.add(data);
                     }
                     LawDepartment.setHasFixedSize(true);
                     LawDepartment.setLayoutManager(new LinearLayoutManager(UploadFacultyActivity.this));
-                    adapter = new TeacherAdapter(list3, UploadFacultyActivity.this, "Law");
+                    adapter = new TeacherAdapter(list3, UploadFacultyActivity.this,"Law");
                     LawDepartment.setAdapter(adapter);
                 }
             }
@@ -185,11 +197,13 @@ public class UploadFacultyActivity extends AppCompatActivity {
                     OtherDepartment.setVisibility(View.VISIBLE);
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                         TeacherData data = snapshot1.getValue(TeacherData.class);
+//                        TeacherData data = new TeacherData(snapshot1.child("name").getValue().toString(), snapshot1.child("email").getValue().toString(),
+//                                snapshot1.child("post").getValue().toString(), snapshot1.child("image").getValue().toString(), snapshot1.getKey());
                         list4.add(data);
                     }
                     OtherDepartment.setHasFixedSize(true);
                     OtherDepartment.setLayoutManager(new LinearLayoutManager(UploadFacultyActivity.this));
-                    adapter = new TeacherAdapter(list4, UploadFacultyActivity.this, "Other Department");
+                    adapter = new TeacherAdapter(list4, UploadFacultyActivity.this,"Other Department");
                     OtherDepartment.setAdapter(adapter);
                 }
             }
