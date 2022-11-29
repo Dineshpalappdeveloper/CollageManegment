@@ -3,9 +3,6 @@ package com.example.collagemanegment.Faculty;
 public class TeacherData {
     private String TeacherName,TeacherEmail,TeacherPost,image,key;
 
-    public TeacherData() {
-    }
-
     public TeacherData(String teacherName, String teacherEmail, String teacherPost, String image, String key) {
         TeacherName = teacherName;
         TeacherEmail = teacherEmail;

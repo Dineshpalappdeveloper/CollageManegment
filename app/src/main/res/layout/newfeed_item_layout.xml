@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-
     android:layout_height="wrap_content">
 <LinearLayout
     android:layout_width="match_parent"
@@ -9,9 +8,8 @@
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-
-        android:paddingVertical="19dp"
-        android:background="#F7FBFB"
+        android:layout_margin="10dp"
+        android:background="#A4CDC9"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <de.hdodenhof.circleimageview.CircleImageView
@@ -23,8 +21,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
-
-            android:layout_marginLeft="2dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
@@ -43,13 +40,10 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
           style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-
-             android:text="Delete"
-
+            android:text="Delete"
             android:id="@+id/deleteNoticeActivityBtn"
             android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold"
+            android:textSize="8dp"
             android:textAllCaps="false"
             android:layout_height="match_parent"/>
     </LinearLayout>

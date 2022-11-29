@@ -15,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,20 +33,18 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 public class UploadEbookActivity extends AppCompatActivity {
-    private CardView PdfPicer;
-    private EditText PdfTitle;
-    private TextView PdfName;
-    private Button PdfuploadBtn1;
-    private String pdfName,title;
+   private CardView PdfPicer;
+   private EditText PdfTitle;
+   private TextView PdfName;
+   private Button PdfuploadBtn1;
+   private String pdfName,title;
     private ProgressDialog pd;
     private final int REQ = 1;
     private Bitmap bitmap;
     private Uri pdfData;
-    String fileName = "";
     String downloadUrl = "";
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
@@ -56,15 +53,12 @@ public class UploadEbookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_upload_ebook);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
 
         pd = new ProgressDialog(this);
 
-        fileName = String.valueOf(new Date().getTime());
-        getSupportActionBar().setTitle("Upload Ebooks");
 
         PdfName = findViewById(R.id.PdfName);
         PdfTitle = findViewById(R.id.PdfTitle);
@@ -138,14 +132,14 @@ public class UploadEbookActivity extends AppCompatActivity {
                 Toast.makeText(UploadEbookActivity.this, "Failed to upload pdf", Toast.LENGTH_SHORT).show();
             }
         });
-
+        
     }
 
 
     private void openGallery() {
         Intent intent = new Intent();
-        intent.setType("application/pdf");
-        // intent.setType("*");
+       intent.setType("pdf/doc/ppt/jpg/png");
+       // intent.setType("*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Pdf File"),REQ);
     }
@@ -155,25 +149,22 @@ public class UploadEbookActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQ && resultCode == RESULT_OK ) {
+        if (requestCode == REQ && resultCode == RESULT_OK) {
+            pdfData = data.getData();
 
-           pdfData = data.getData();
-            if (pdfData.toString().startsWith("content://")){
-                Cursor cursor = null;
-                try {
-                    cursor = UploadEbookActivity.this.getContentResolver().query(pdfData,null,null,null,null);
-                    if (cursor != null && cursor.moveToFirst()){
-                        pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if (pdfData.toString().startsWith("content://")){
+            Cursor cursor = null;
+            try {
+                cursor = UploadEbookActivity.this.getContentResolver().query(pdfData,null,null,null,null);
+                if (cursor != null && cursor.moveToFirst()){
+                    pdfName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
                 }
-            }else if (pdfData.toString().startsWith("file://")){
-                pdfName = new File(pdfData.toString()).getName();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            PdfName.setText(pdfName);
+        }else if (pdfData.toString().startsWith("file://")){
+            pdfName = new File(pdfData.toString()).getName();
+        }
         }
     }
-
 }

@@ -72,7 +72,10 @@ public class SignUpActivity extends AppCompatActivity {
         intent.putExtra("Name",sName);
         intent.putExtra("Password",sPassword);
         intent.putExtra("PhoneNo",sPhoneNo);
+<<<<<<< HEAD
         intent.putExtra("status","no");
+=======
+>>>>>>> origin/main
 
         ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUpActivity.this,pairs);
         startActivity(intent,options.toBundle());

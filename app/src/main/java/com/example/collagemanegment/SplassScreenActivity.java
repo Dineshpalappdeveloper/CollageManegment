@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.content.SharedPreferences;
+=======
+>>>>>>> origin/main
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
@@ -38,6 +41,7 @@ public class SplassScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+<<<<<<< HEAD
 
                 SharedPreferences pref = getSharedPreferences("Login",MODE_PRIVATE);
                 boolean check = pref.getBoolean("flag",false);
@@ -55,6 +59,12 @@ public class SplassScreenActivity extends AppCompatActivity {
 
             }
         },2000);
+=======
+                startActivity(new Intent(SplassScreenActivity.this, LoginActivity.class));
+                finish();
+            }
+        },4000);
+>>>>>>> origin/main
 
 
 

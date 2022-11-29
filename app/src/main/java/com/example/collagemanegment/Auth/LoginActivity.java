@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                     String _sysPassword = snapshot.child(sUserPhoneNo).child("password").getValue(String.class);
                     if (Objects.equals(_sysPassword,sPassword)){
                         password.setError(null);
+<<<<<<< HEAD
 
                         SharedPreferences pref = getSharedPreferences("Login",MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
@@ -126,6 +127,8 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putBoolean("flag",true);
                         editor.apply();
 
+=======
+>>>>>>> origin/main
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         finish();
                         pd.dismiss();
